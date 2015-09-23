@@ -1,0 +1,14 @@
+<h4>You are in "{{ name }}"</h4>
+
+Width: {{input value=mapWidth size="3"}}
+Height: {{input value=mapHeight size="3"}}
+
+<table style="border: 1px solid gray;">
+  {{#each map.rows as |row|}}
+    <tr>
+      {{#each row.cells as |cell|}}
+        <td>{{cell.text}}</td>
+      {{/each}}
+    </tr>
+  {{/each}}
+</table>
