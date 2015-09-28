@@ -1,6 +1,4 @@
-
 import Ember from 'ember';
-import Item from '../models/item'
 
 export default Ember.Controller.extend({
   character: Ember.computed.alias('model'),
@@ -19,7 +17,14 @@ export default Ember.Controller.extend({
       this.get('character.items').removeObject(item);
     },
     addItem: function() {
-      this.get('character.items').pushObject(Item.createRandom());
+      // TODO make this come from a random item generator?
+      var item = this.store.createRecord('item',
+        {
+        name: 'Sword of Life',
+        weight: 4,
+        constitutionBonus: 3
+      });
+      this.get('character.items').pushObject(item);
     },
     increaseStat: function(stat) {
       this._modifyStat(stat, 1);
