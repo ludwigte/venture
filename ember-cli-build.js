@@ -6,7 +6,11 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
   });
-
+app.import('bower_components/bootstrap-sass/assets/javascripts/bootstrap.js');
+app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot', {destDir: 'fonts/bootstrap'});
+app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg', {destDir: 'fonts/bootstrap'});
+app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf', {destDir: 'fonts/bootstrap'});
+app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff', {destDir: 'fonts/bootstrap'});
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
