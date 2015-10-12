@@ -1,97 +1,63 @@
-<div class="container">
-    <div class="row">
-            <div class="col-sm-3">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Character Info</h3>
-                    </div>
-                    <div class="panel-body">
-                        Information about the selected character goes here.
-                    </div>
-                </div>
+import Ember from 'ember';
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
+export default Ember.Controller.extend({
+  characters: Ember.computed.alias('model'),
+  character: Ember.computed.alias('characters.firstObject'),
+  
+  hasItems: Ember.computed.notEmpty('character.items'),
+  burdenPercent: Ember.computed('character.itemWeight', 'character.maxWeight', function() {
+    return Math.min(this.get('character.itemWeight') / this.get('character.maxWeight') * 100, 100);
+  }),
+  
+  _modifyStat: function(stat, amount){
+    this.set('character.'+stat, this.get('character.'+stat)+amount);
+  },
+  
+  actions: {
+    changeCharacter: function(char) {
+      this.set('character', char);
+    },
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
+    removeCharacter: function() {
+      this.get('character').deleteRecord();
+      var that = this;
+      this.get('character').save().then(function() {
+        that.set('character');
+      });
+    },
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-sm btn-default">
-                            <span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
+    saveCharacter: function() {
+      this.get('character').save();
+    },
 
-            </div>
-</div>
+    addCharacter: function() {
+      var char = this.store.createRecord('character');
+      char.save();
+      this.set('character', char);
+    },
 
-        <div class="col-md-9">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Map of Venture Land</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="venture_map">
-                        <h4>You are in "{{ name }}"</h4>
-
-Width: {{input value=mapWidth size="3"}}
-Height: {{input value=mapHeight size="3"}}
-
-<table style="border: 1px solid gray;">
-  {{#each map.rows as |row|}}
-    <tr>
-      {{#each row.cells as |cell|}}
-        <td>{{cell.text}}</td>
-      {{/each}}
-    </tr>
-  {{/each}}
-</table>
-                        </div>
-                    </div>
-                </div>
-         </div>
-
-         </div>
-
+    removeItem: function(item) {
+      this.get('character.items').removeObject(item);
+    },
+    addItem: function() {
+      // TODO make this come from a random item generator?
+      if(!this.get('character.hampered')) {
+        var item = this.store.createRecord('item',
+          {
+          name: 'Sword of Life',
+          weight: 4,
+          constitutionBonus: 3
+        });
+        item.save();
+        this.get('character.items').pushObject(item);
+      }
+    },
+    increaseStat: function(stat) {
+      this._modifyStat(stat, 1);
+    },
+    
+    decreaseStat: function(stat) {
+      this._modifyStat(stat, -1);
+    },
+  }
+});

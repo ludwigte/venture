@@ -1,0 +1,181 @@
+<div class="row">
+  <div class="col-sm-12">
+    <ul>
+      {{#each characters as |char|}}
+      <li class="btn btn-default" {{ action 'changeCharacter' char }} >{{ char.name }} {{ char.level }}</li>
+      {{/each}}
+      <li class="btn btn-default" {{ action 'addCharacter' }} >New</li>
+    </ul>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Basic Info</div>
+      <div class="panel-body">
+        <h3>{{ character.name }} Level 
+          <span {{action 'increaseStat' 'level' }}
+            class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.class }}</h3>
+        <span class="btn btn-success" {{ action 'saveCharacter' }}>Save</span>
+        <span class="btn btn-danger" {{ action 'removeCharacter' }}>Drop</span>
+
+        <div>Health</div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+            <span>HP: {{ character.maxHealth}} / {{ character.maxHealth}}</span>
+          </div>
+        </div>
+
+        <div>Mana</div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+            <span>MP: {{ character.maxMana}} / {{ character.maxMana}}</span>
+          </div>
+        </div>
+
+        <div>Burden</div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-{{if character.hampered 'warning' }}" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: {{ burdenPercent }}%;">
+            <span>{{ character.itemWeight}} / {{ character.maxWeight}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Stats</div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+              <th>stat</th>
+              <th>&nbsp;</th>
+              <th>value</th>
+              <th>&nbsp;</th>
+              <th>bonus</th>
+          </thead>
+
+          <tbody>
+            {{!--character-stat-modifier stat='strength' character=character--}}
+          <tr>
+            <td>strength</td>
+            <td>
+              <span {{action 'decreaseStat' 'strength'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.strength }} </td>
+            <td>
+              <span {{action 'increaseStat' 'strength'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.strengthBonus }}</td>
+          </tr>
+
+          <tr>
+            <td>intelligence</td>
+            <td>
+              <span {{action 'decreaseStat' 'intelligence'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.intelligence }} </td>
+            <td>
+              <span {{action 'increaseStat' 'intelligence'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.intelligenceBonus }}</td>
+          </tr>
+
+          <tr>
+            <td>wisdom</td>
+            <td>
+              <span {{action 'decreaseStat' 'wisdom'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.wisdom }} </td>
+            <td>
+              <span {{action 'increaseStat' 'wisdom'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.wisdomBonus }}</td>
+          </tr>
+
+          <tr>
+            <td>dexterity</td>
+            <td>
+              <span {{action 'decreaseStat' 'dexterity'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.dexterity }} </td>
+            <td>
+              <span {{action 'increaseStat' 'dexterity'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.dexterityBonus }}</td>
+          </tr>
+
+          <tr>
+            <td>constitution</td>
+            <td>
+              <span {{action 'decreaseStat' 'constitution'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.constitution }} </td>
+            <td>
+              <span {{action 'increaseStat' 'constitution'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.constitutionBonus }}</td>
+          </tr>
+
+          <tr>
+            <td>charisma</td>
+            <td>
+              <span {{action 'decreaseStat' 'charisma'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.charisma }} </td>
+            <td>
+              <span {{action 'increaseStat' 'charisma'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.charismaBonus }}</td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Inventory</div>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+            <th>name</th>
+            <th>weight</th>
+            <th>bonuses</th>
+            <th>&nbsp;</th>
+          </thead>
+
+          <tbody>
+
+            {{#each character.items as |item|}}
+              <tr>
+                <td><strong>{{ item.name }}</strong></td>
+                <td>{{ item.weight }}</td>
+                <td>
+                  {{#each item.bonusStrings as |b|}}
+                    <span class="label label-success">{{b}}</span>
+                  {{/each}}
+                </td>
+                <td><span class="btn btn-xs" {{ action 'removeItem' item }}>drop</span></td>
+              </tr>
+            {{/each}}
+
+          </tbody>
+        </table>
+        
+        {{#unless character.hampered }}
+          <div class='btn btn-success pull-right' {{ action 'addItem' }}>pickup</div>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+
+</div>
