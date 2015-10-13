@@ -15,7 +15,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Basic Info</div>
       <div class="panel-body">
-        <h3>{{ character.name }} Level 
+        <h3>{{ character.name }} Level
           <span {{action 'increaseStat' 'level' }}
             class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.class }}</h3>
         <span class="btn btn-success" {{ action 'saveCharacter' }}>Save</span>
@@ -62,8 +62,9 @@
 
           <tbody>
             {{!--character-stat-modifier stat='strength' character=character--}}
+            {{character-stat-modifier label='strength' stat='character.strength' bonus=character.strengthBonus character=character}}
           <tr>
-            <td>strength</td>
+            <td>{{label}}</td>
             <td>
               <span {{action 'decreaseStat' 'strength'}} class="btn btn-default btn-xs">-</span>
             </td>
@@ -170,7 +171,7 @@
 
           </tbody>
         </table>
-        
+
         {{#unless character.hampered }}
           <div class='btn btn-success pull-right' {{ action 'addItem' }}>pickup</div>
         {{/unless}}

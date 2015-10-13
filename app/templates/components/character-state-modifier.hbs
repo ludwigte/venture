@@ -1,0 +1,11 @@
+<tr>
+            <td>{{label}}</td>
+            <td>
+              <span {{action 'decreaseStat' 'strength'}} class="btn btn-default btn-xs">-</span>
+            </td>
+            <td> {{ character.strength }} </td>
+            <td>
+              <span {{action 'increaseStat' 'strength'}} class="btn btn-default btn-xs">+</span>
+            </td>
+            <td>{{ character.strengthBonus }}</td>
+          </tr>

@@ -1,63 +1,49 @@
-import Ember from 'ember';
+<div class="row">
+  <div class="col-sm-12">
+    <h4>You are in "{{ name }}"</h4>
+  </div>
+</div>
 
-export default Ember.Controller.extend({
-  characters: Ember.computed.alias('model'),
-  character: Ember.computed.alias('characters.firstObject'),
-  
-  hasItems: Ember.computed.notEmpty('character.items'),
-  burdenPercent: Ember.computed('character.itemWeight', 'character.maxWeight', function() {
-    return Math.min(this.get('character.itemWeight') / this.get('character.maxWeight') * 100, 100);
-  }),
-  
-  _modifyStat: function(stat, amount){
-    this.set('character.'+stat, this.get('character.'+stat)+amount);
-  },
-  
-  actions: {
-    changeCharacter: function(char) {
-      this.set('character', char);
-    },
-
-    removeCharacter: function() {
-      this.get('character').deleteRecord();
-      var that = this;
-      this.get('character').save().then(function() {
-        that.set('character');
-      });
-    },
-
-    saveCharacter: function() {
-      this.get('character').save();
-    },
-
-    addCharacter: function() {
-      var char = this.store.createRecord('character');
-      char.save();
-      this.set('character', char);
-    },
-
-    removeItem: function(item) {
-      this.get('character.items').removeObject(item);
-    },
-    addItem: function() {
-      // TODO make this come from a random item generator?
-      if(!this.get('character.hampered')) {
-        var item = this.store.createRecord('item',
-          {
-          name: 'Sword of Life',
-          weight: 4,
-          constitutionBonus: 3
-        });
-        item.save();
-        this.get('character.items').pushObject(item);
-      }
-    },
-    increaseStat: function(stat) {
-      this._modifyStat(stat, 1);
-    },
+<div class="row">
+  <div class="col-sm-3">
+    <div class="col-sm-12" style="height: 200px;">
+      <div>CHARACTER!</div>
+    </div>
+    <div class="col-sm-12">
+      Width: {{input value=mapWidth size="3"}}
+      Height: {{input value=mapHeight size="3"}}
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4"> 
+        <span class="btn btn-default" {{action 'movePlayer' 'north'}}>UP!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4"> 
+        <span class="btn btn-default">LEFT!</span>
+      </div>
+      <div class="col-sm-4 col-sm-offset-4"> 
+        <span class="btn btn-default">RIGHT!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4"> 
+        <span class="btn btn-default">DOWN!</span>
+      </div>
+    </div>
     
-    decreaseStat: function(stat) {
-      this._modifyStat(stat, -1);
-    },
-  }
-});
+  </div>
+  
+  <div class="col-sm-9">
+    <table style="border: 1px solid gray;">
+      {{#each map.rows as |row|}}
+        <tr>
+          {{#each row.cells as |cell|}}
+            <td>{{cell.text}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </table>
+  </div>
+
+</div>
