@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -7,9 +8,9 @@
     <ul class="nav navbar-nav">
       <li> {{#link-to 'map'}} <span>Map</span> {{/link-to}} </li>
       <li> {{#link-to 'characters'}} <span>Characters</span> {{/link-to}} </li>
-      <li> {{#link-to 'login'}} <span>Login</span> {{/link-to}} </li>
+      <li> {{#link-to 'authenticated.secretz'}} <span>Secrets</span> {{/link-to}} </li>
       {{#if session.isAuthenticated}}
-        <li> <a href="!#" {{action "invalidateSession"}}>Logout</a> </li>
+        <li><a href="!#" {{action 'invalidateSession'}}>Logout</a></li>
       {{/if}}
     </ul>
 

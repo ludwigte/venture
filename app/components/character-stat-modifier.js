@@ -5,11 +5,10 @@ export default Ember.Component.extend({
 
   actions: {
     increaseStat: function() {
-      this.set('stat', this.get('stat') +1);
-      //this.incrementProperty('stat');
+      this.incrementProperty('stat');
     },
     decreaseStat: function() {
-      this.set('stat', this.get('stat') -1);
+      this.decrementProperty('stat');
     },
   }
 });
