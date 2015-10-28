@@ -6,8 +6,8 @@
     </div>
 
     <ul class="nav navbar-nav">
-      <li> {{#link-to 'map'}} <span>Map</span> {{/link-to}} </li>
-      <li> {{#link-to 'characters'}} <span>Characters</span> {{/link-to}} </li>
+      <li> {{#link-to 'authenticated.map'}} <span>Map</span> {{/link-to}} </li>
+      <li> {{#link-to 'authenticated.characters'}} <span>Characters</span> {{/link-to}} </li>
       <li> {{#link-to 'authenticated.secretz'}} <span>Secrets</span> {{/link-to}} </li>
       {{#if session.isAuthenticated}}
         <li><a href="!#" {{action 'invalidateSession'}}>Logout</a></li>
