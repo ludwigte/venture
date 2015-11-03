@@ -5,17 +5,29 @@ const BASE_HP = 40;
 const BASE_MP = 30;
 
 export default DS.Model.extend({
-  level: DS.attr('number', {defaultValue: 1}),
-  intelligence: 17,
-  strength: 4,
-  wisdom: 19,
-  constitution: 3,
-  dexterity: 7,
-  charisma: 8,
-  class: Ember.computed(function(){
+
+  currentHealth: DS.attr('number', {defaultValue: 1}),
+  currentMana: DS.attr('number', {defaultValue: 1}),
+
+  name: DS.attr('string', {
+    defaultValue: function() {
+      var names = ['Tristan', 'Isolde', 'Abercrombie'];
+      return names[Math.floor(Math.random()*names.length)];
+    }
+  }),
+
+  characterClass: DS.attr('string', {defaultValue: function() {
     var classes = ['Warlock', 'Valkyrie', 'Soothsayer'];
     return classes[Math.floor(Math.random()*classes.length)];
-  }),
+  }}),
+
+  level: DS.attr('number', {defaultValue: 1}),
+  intelligence: DS.attr('number', {defaultValue: 17}),
+  strength: DS.attr('number', {defaultValue: 4}),
+  wisdom: DS.attr('number', {defaultValue: 19}),
+  constitution: DS.attr('number', {defaultValue: 3}),
+  dexterity: DS.attr('number', {defaultValue: 7}),
+  charisma: DS.attr('number', {defaultValue: 8}),
 
   items: DS.hasMany('items',{async: true}),
 
@@ -36,10 +48,7 @@ export default DS.Model.extend({
      return this.get('strength') * 5;
   }),
 
-  name: Ember.computed(function(){
-    var names = ['Tristan', 'Isolde', 'Abercrombie'];
-    return names[Math.floor(Math.random()*names.length)];
-  }),
+
 
   itemConstitutionBonuses: Ember.computed.mapBy('items','constitutionBonus'),
   constitutionBonus: Ember.computed.sum('itemConstitutionBonuses'),

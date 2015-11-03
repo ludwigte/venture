@@ -10,15 +10,33 @@
   </div>
 </div>
 
+{{#if hasCharacters}}
+
 <div class="row">
   <div class="col-sm-4">
     <div class="panel panel-default">
       <div class="panel-heading">Basic Info</div>
+
       <div class="panel-body">
-        <h3>{{ character.name }} Level
+
+        <!-- <input type="text" value="{{character.name}} /> -->
+        <h3>
+        <!-- <div class={{unless isValid 'has-errors'}}> -->
+        <div class={{if errors.character.name 'has-errors'}}>
+        {{input value=character.name class="form-control"}}
+        {{#unless isValid}}
+        <div>
+        {{#each errors.character.name as |err|}}
+          <span class="label danger">{{err}}</span>
+        {{/each}}
+        </div>
+        {{/unless}}
+
+        </div>
+        Level
           <span {{action 'increaseStat' 'level' }}
-            class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.class }}</h3>
-        <span class="btn btn-success" {{ action 'saveCharacter' }}>Save</span>
+            class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.characterClass }}</h3>
+        <span disabled={{unless isValid 'disabled'}} class="btn btn-success"  {{ action 'saveCharacter' }}>Save</span>
         <span class="btn btn-danger" {{ action 'removeCharacter' }}>Drop</span>
 
         <div>Health</div>
@@ -161,3 +179,8 @@
   </div>
 
 </div>
+
+{{else}}
+<h3>No character selected!</h3>
+{{/if}}
+
