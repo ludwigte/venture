@@ -34,7 +34,7 @@
 
         </div>
         Level
-          <span {{action 'increaseStat' 'level' }}
+          <span {{action 'levelUp'}}
             class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.characterClass }}</h3>
         <span disabled={{unless isValid 'disabled'}} class="btn btn-success"  {{ action 'saveCharacter' }}>Save</span>
         <span class="btn btn-danger" {{ action 'removeCharacter' }}>Drop</span>
