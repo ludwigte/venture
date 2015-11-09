@@ -2,23 +2,6 @@ import Ember from 'ember';
 
 import EmberValidations from 'ember-validations';
 
-
-var ItemDropper = Ember.Object.extend({
-    randomItem: function()  {
-      const itemDescriptions=[{
-        name: 'Sword of Life',
-        weight: 4,
-        constitutionBonus: 3
-      },
-       {
-        name: 'Sword of Prolonged Life',
-        weight: 4,
-        constitutionBonus: 6
-      }];
-      return itemDescriptions[Math.floor(Math.random()*itemDescriptions.length)];
-    }
-});
-
 export default Ember.Controller.extend(EmberValidations, {
   validations: {
     'character.name': {presence: true, length: {minimum: 3}}
@@ -83,4 +66,20 @@ export default Ember.Controller.extend(EmberValidations, {
       this._modifyStat(stat, -1);
     },
   }
+});
+
+var ItemDropper = Ember.Object.extend({
+    randomItem: function()  {
+      const itemDescriptions=[{
+        name: 'Sword of Life',
+        weight: 4,
+        constitutionBonus: 3
+      },
+       {
+        name: 'Sword of Prolonged Life',
+        weight: 4,
+        constitutionBonus: 6
+      }];
+      return itemDescriptions[Math.floor(Math.random()*itemDescriptions.length)];
+    }
 });
