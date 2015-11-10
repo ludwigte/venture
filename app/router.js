@@ -6,7 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('login');
+  this.route('login', {path: '/'}); // problem is that now /login doesn't work
   this.route('authenticated', function() {
     this.route('secretz');
     this.route('characters');
