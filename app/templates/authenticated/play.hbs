@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h4>You are in "{{ name }}"</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="col-sm-12" style="height: 200px;">
+      <div>CHARACTER!</div>
+    </div>
+    <div class="col-sm-12">
+      Width: {{input value=mapWidth size="3"}}
+      Height: {{input value=mapHeight size="3"}}
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <span class="btn btn-default" {{action 'movePlayer' 'north'}}>UP!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <span class="btn btn-default">LEFT!</span>
+      </div>
+      <div class="col-sm-4 col-sm-offset-4">
+        <span class="btn btn-default">RIGHT!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <span class="btn btn-default">DOWN!</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-9">
+    <table style="border: 1px solid gray;">
+      {{#each map.rows as |row|}}
+        <tr>
+          {{#each row.cells as |cell|}}
+            <td>{{cell.text}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </table>
+  </div>
+
+</div>
