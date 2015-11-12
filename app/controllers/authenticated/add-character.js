@@ -23,6 +23,20 @@ export default Ember.Controller.extend(EmberValidations, {
   },
 
   actions: {
+    randomizeCharacter: function()
+    {
+      var randomCharacter = this.get('randomCharacterGenerator').randomize();
+      this.set('character', randomCharacter);
+
+    },
+    levelUp: function() {
+      this.incrementProperty('character.level');
+      this.send('showModal', {
+        template: 'level-character',
+        character: this.get('character'),
+        pointsLeft: 3
+      });
+    },
     removeItem: function(item) {
       this.get('character.items').removeObject(item);
     },

@@ -69,6 +69,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Stats</div>
       <div class="panel-body">
+      <div>{{character.statPointsToSpend}} left.</div>
         <table class="table table-hover">
           <thead>
               <th>stat</th>
@@ -79,10 +80,10 @@
           </thead>
 
           <tbody>
+            {{ character-stat-modifier l}}
+
             {{!-- character-stat-modifier label='strength' stat=character.strength incAction=incAction decAction=decAction --}}
-
-
-            {{ character-stat-modifier label='strength' stat=character.strength bonus=character.strengthBonsu}}
+            {{ character-stat-modifier label='strength' stat=character.strength bonus=character.strengthBonus pointsLeft=character.statPointsToSpend}}
 
             {{ character-stat-modifier label='intelligence' stat=character.intelligence bonus=character.intelligenceBonus}}
 
@@ -170,9 +171,10 @@
 
           </tbody>
         </table>
+        <div class='btn btn-success pull-right' {{ action 'addItem' }}>Random</div>
 
         {{#unless character.hampered }}
-          <div class='btn btn-success pull-right' {{ action 'addItem' }}>Pick Up Randomcd Item</div>
+          <div class='btn btn-danger' {{ action 'randomizeCharacter' }}>Pick Up Randomcd Item</div>
         {{/unless}}
       </div>
     </div>
