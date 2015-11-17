@@ -1,42 +1,21 @@
 <div class="row">
-  <div class="col-sm-12">
-    <ul>
-      {{#each characters as |char|}}
-      <li class="btn btn-default" {{ action 'changeCharacter' char }} >{{ char.name }} {{ char.level }}</li>
-      {{/each}}
-      <li class="btn btn-default" {{ action 'addCharacter' }} >New</li>
-    </ul>
-
-  </div>
-</div>
-
-{{#if hasCharacters}}
-
-<div class="row">
   <div class="col-sm-4">
     <div class="panel panel-default">
       <div class="panel-heading">Basic Info</div>
-
       <div class="panel-body">
 
-        <!-- <input type="text" value="{{character.name}} /> -->
-        <h3>
-        <!-- <div class={{unless isValid 'has-errors'}}> -->
-        <div class={{if errors.character.name 'has-errors'}}>
-        {{input value=character.name class="form-control"}}
-        {{#unless isValid}}
-        <div>
-        {{#each errors.character.name as |err|}}
-          <span class="label danger">{{err}}</span>
-        {{/each}}
-        </div>
-        {{/unless}}
+        <h3> 
+          <div class={{if errors.character.name 'has-error' }}>
+          {{input value=character.name class="form-control" }}
+            {{#each errors.character.name as |err|}}
+              <span class="label label-danger">{{err}}</span>
+            {{/each}}
+          </div>
 
-        </div>
-        Level
-          <span {{action 'levelUp'}}
+          Level <span {{action 'levelUp' }}
             class="btn btn-sm btn-success">{{ character.level }}</span> {{ character.characterClass }}</h3>
-        <span disabled={{unless isValid 'disabled'}} class="btn btn-success"  {{ action 'saveCharacter' }}>Save</span>
+
+        <span disabled={{unless isValid 'disabled'}} class="btn btn-success" {{ action 'saveCharacter' }}>Save</span>
         <span class="btn btn-danger" {{ action 'removeCharacter' }}>Drop</span>
 
         <div>Health</div>
@@ -69,7 +48,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Stats</div>
       <div class="panel-body">
-      <div>{{character.statPointsToSpend}} left.</div>
+        <div>{{ character.statPointsToSpend }} left.</div>
         <table class="table table-hover">
           <thead>
               <th>stat</th>
@@ -80,60 +59,12 @@
           </thead>
 
           <tbody>
-            {{ character-stat-modifier l}}
-
-            {{!-- character-stat-modifier label='strength' stat=character.strength incAction=incAction decAction=decAction --}}
             {{ character-stat-modifier label='strength' stat=character.strength bonus=character.strengthBonus pointsLeft=character.statPointsToSpend}}
-
-            {{ character-stat-modifier label='intelligence' stat=character.intelligence bonus=character.intelligenceBonus}}
-
-          <tr>
-            <td>wisdom</td>
-            <td>
-              <span {{action 'decreaseStat' 'wisdom'}} class="btn btn-default btn-xs">-</span>
-            </td>
-            <td> {{ character.wisdom }} </td>
-            <td>
-              <span {{action 'increaseStat' 'wisdom'}} class="btn btn-default btn-xs">+</span>
-            </td>
-            <td>{{ character.wisdomBonus }}</td>
-          </tr>
-
-          <tr>
-            <td>dexterity</td>
-            <td>
-              <span {{action 'decreaseStat' 'dexterity'}} class="btn btn-default btn-xs">-</span>
-            </td>
-            <td> {{ character.dexterity }} </td>
-            <td>
-              <span {{action 'increaseStat' 'dexterity'}} class="btn btn-default btn-xs">+</span>
-            </td>
-            <td>{{ character.dexterityBonus }}</td>
-          </tr>
-
-          <tr>
-            <td>constitution</td>
-            <td>
-              <span {{action 'decreaseStat' 'constitution'}} class="btn btn-default btn-xs">-</span>
-            </td>
-            <td> {{ character.constitution }} </td>
-            <td>
-              <span {{action 'increaseStat' 'constitution'}} class="btn btn-default btn-xs">+</span>
-            </td>
-            <td>{{ character.constitutionBonus }}</td>
-          </tr>
-
-          <tr>
-            <td>charisma</td>
-            <td>
-              <span {{action 'decreaseStat' 'charisma'}} class="btn btn-default btn-xs">-</span>
-            </td>
-            <td> {{ character.charisma }} </td>
-            <td>
-              <span {{action 'increaseStat' 'charisma'}} class="btn btn-default btn-xs">+</span>
-            </td>
-            <td>{{ character.charismaBonus }}</td>
-          </tr>
+            {{ character-stat-modifier label='intelligence' stat=character.intelligence bonus=character.intelligenceBonus pointsLeft=character.statPointsToSpend}}
+            {{ character-stat-modifier label='wisdom' stat=character.wisdom bonus=character.wisdomBonus pointsLeft=character.statPointsToSpend}}
+            {{ character-stat-modifier label='dexterity' stat=character.dexterity bonus=character.dexterityBonus pointsLeft=character.statPointsToSpend}}
+            {{ character-stat-modifier label='constitution' stat=character.constitution bonus=character.constitutionBonus pointsLeft=character.statPointsToSpend}}
+            {{ character-stat-modifier label='charisma' stat=character.charisma bonus=character.charismaBonus pointsLeft=character.statPointsToSpend}}
           </tbody>
 
         </table>
@@ -171,18 +102,14 @@
 
           </tbody>
         </table>
-        <div class='btn btn-success pull-right' {{ action 'addItem' }}>Random</div>
-
+        
         {{#unless character.hampered }}
-          <div class='btn btn-danger' {{ action 'randomizeCharacter' }}>Pick Up Randomcd Item</div>
+          <div class='btn btn-success pull-right' {{ action 'addItem' }}>pickup</div>
         {{/unless}}
       </div>
     </div>
   </div>
 
+  <div class='btn btn-danger' {{ action 'randomizeCharacter' }}>Random</div>
+
 </div>
-
-{{else}}
-<h3>No character selected!</h3>
-{{/if}}
-

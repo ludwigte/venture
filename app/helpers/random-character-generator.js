@@ -2,21 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Object.extend({
 
-    random: function() {
-      var char = this.store.createRecord('character');
-      var numStats = 6;
+  randomize: function() {
+    var char = this.store.createRecord('character');
 
-      const stats = ['intelligence', 'strength', 'wisdom', 'dexterity', 'constitution', 'charisma'];
+    var numStats = 6;
 
-      // choose random name for character
-      var points = char.get('statPointsToSpend');
+    const stats = ['intelligence', 'strength', 'wisdom', 'constitution', 'dexterity', 'charisma'];
+    var points = char.get('statPointsToSpend');
 
-      for( let i = 0; i < points; i++ ) {
-        var j = Math.floor(Math.random*numStats);
-        let statName = stats[j];
-        char.incrementProperty(statName);
-      }
-      char.set('statPointsToSpend', 0);
+    for(let i = 0; i < points; i++) {
+      let j = Math.floor(Math.random()*numStats);
+      let statName = stats[j];
+      char.incrementProperty(statName);
+    }
+    char.set('statPointsToSpend',0);
 
     return char;
   }

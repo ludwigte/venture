@@ -1,18 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  //model: function() {
+  //  return this.store.findAll('character');
+  //}
   model: function() {
-    return this.store.findAll('character');
-//
-//
-//     var char = this.store.createRecord('character');
-//     var sword = this.store.createRecord('item', {
-//       name: 'Sword of Life',
-//       weight: 4,
-//       constitutionBonus: 3
-//     });
-//     char.get('items').pushObject(sword);
-//     // char.save();
-//     return char;
+    let charPromise = this.store.findAll('character');
+    return new Ember.RSVP.Promise((resolve,reject) => {
+      return Ember.run.later(() => {
+        charPromise.then(chars => {
+          if(chars.length === 0) {
+            resolve(charPromise);
+          }
+          else {
+            reject('Error: Empty Character!');
+          }
+        });
+      }, 2000);
+    }).then(null, err => {alert(err.error)});
+
   }
 });
