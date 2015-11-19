@@ -1,11 +1,21 @@
-<tr>
-            <td>{{label}}</td>
-            <td>
-              <span {{action 'decreaseStat' 'strength'}} class="btn btn-default btn-xs">-</span>
-            </td>
-            <td> {{ character.strength }} </td>
-            <td>
-              <span {{action 'increaseStat' 'strength'}} class="btn btn-default btn-xs">+</span>
-            </td>
-            <td>{{ character.strengthBonus }}</td>
-          </tr>
+<td>{{label}}</td>
+<td>
+  <span {{action 'decreaseStat' }} class="btn btn-default btn-xs">-</span>
+</td>
+<td> {{ stat }} </td>
+<td>
+  <span {{action 'increaseStat'}} disabled={{unless hasPointsLeft 'disabled'}} class="btn btn-default btn-xs">+</span>
+</td>
+<td>{{ bonus }}</td>
+
+//<tr>
+//  <td>{{label}}</td>
+//  <td>
+//    <span {{action 'decreaseStat' 'strength'}} class="btn btn-default btn-xs">-</span>
+//  </td>
+//  <td> {{ character.strength }} </td>
+//  <td>
+//    <span {{action 'increaseStat' 'strength'}} class="btn btn-default btn-xs">+</span>
+//  </td>
+//  <td>{{ character.strengthBonus }}</td>
+//</tr>

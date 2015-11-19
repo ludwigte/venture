@@ -8,7 +8,7 @@ export default DS.Model.extend({
   // statPointsToSpend: DS.attr('number', {defaultValue: 20}),
   statPointsToSpend: 20,
 
-  // TODO make these based off max health/mana?
+  // TODO make these based on max health/mana?
   currentHealth: DS.attr('number', {defaultValue: 1}),
   currentMana: DS.attr('number', {defaultValue: 1}),
 

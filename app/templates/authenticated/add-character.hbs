@@ -4,7 +4,7 @@
       <div class="panel-heading">Basic Info</div>
       <div class="panel-body">
 
-        <h3> 
+        <h3>
           <div class={{if errors.character.name 'has-error' }}>
           {{input value=character.name class="form-control" }}
             {{#each errors.character.name as |err|}}
@@ -102,9 +102,9 @@
 
           </tbody>
         </table>
-        
+
         {{#unless character.hampered }}
-          <div class='btn btn-success pull-right' {{ action 'addItem' }}>pickup</div>
+          <div class='btn btn-success pull-right' {{ action 'addItem' }}>Pick Up Item</div>
         {{/unless}}
       </div>
     </div>

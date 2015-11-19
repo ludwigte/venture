@@ -1,0 +1,46 @@
+<div id="myModal" class="modal fade in" style="display: block;" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <span class='pull-right btn btn-default' {{ action 'closeModal' }}>&times;</span>
+
+        <h4 class="modal-title">Level {{ character.level }}! Points left: {{ model.pointsLeft }}</h4>
+      </div>
+      <div class="modal-body">
+
+        <table class="table table-hover">
+          <thead>
+              <th>stat</th>
+              <th>&nbsp;</th>
+              <th>value</th>
+              <th>&nbsp;</th>
+              <th>bonus</th>
+          </thead>
+
+          <tbody>
+            {{ character-stat-modifier label='strength' stat=character.strength bonus=character.strengthBonus pointsLeft=model.pointsLeft}}
+            {{ character-stat-modifier label='intelligence' stat=character.intelligence bonus=character.intelligenceBonus pointsLeft=model.pointsLeft}}
+            {{ character-stat-modifier label='wisdom' stat=character.wisdom bonus=character.wisdomBonus pointsLeft=model.pointsLeft}}
+            {{ character-stat-modifier label='dexterity' stat=character.dexterity bonus=character.dexterityBonus pointsLeft=model.pointsLeft}}
+            {{ character-stat-modifier label='constitution' stat=character.constitution bonus=character.constitutionBonus pointsLeft=model.pointsLeft}}
+            {{ character-stat-modifier label='charisma' stat=character.charisma bonus=character.charismaBonus pointsLeft=model.pointsLeft}}
+          </tbody>
+
+        </table>
+
+
+      </div>
+      <div class="modal-footer">
+        {{#if hasPointsLeft}}
+          <span class='btn btn-default' disabled="disabled">Done</span>
+        {{else}}
+          <span class='btn btn-default' {{ action 'saveCharacter' }}>Done</span>
+        {{/if}}
+      </div>
+    </div>
+
+  </div>
+</div>
