@@ -15,20 +15,20 @@
     </div>
     <div class="row">
       <div class="col-sm-4 col-sm-offset-4">
-        <span class="btn btn-default" {{action 'movePlayer' 'north'}}>UP!</span>
+        <span class="btn btn-default" {{action 'move' 'north'}}>UP!</span>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-4">
-        <span class="btn btn-default">LEFT!</span>
+        <span class="btn btn-default" {{action 'move' 'west'}}>LEFT!</span>
       </div>
       <div class="col-sm-4 col-sm-offset-4">
-        <span class="btn btn-default">RIGHT!</span>
+        <span class="btn btn-default" {{action 'move' 'east'}}>RIGHT!</span>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-4 col-sm-offset-4">
-        <span class="btn btn-default">DOWN!</span>
+        <span class="btn btn-default" {{action 'move' 'south'}}>DOWN!</span>
       </div>
     </div>
 

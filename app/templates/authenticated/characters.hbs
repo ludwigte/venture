@@ -1,12 +1,14 @@
 <div class="row">
   <div class="col-sm-12">
     <ul>
+      {{#unless characters}}
+        <h1>ERROR!</h1>
+      {{/unless}}
       {{#each characters as |char|}}
         {{#link-to 'authenticated.play' char}}
-          <li class="btn btn-default">{{ char.name }} {{ char.level }}</li>
+          <li class="btn btn-default" >{{ char.name }} {{ char.level }}</li>
         {{/link-to}}
       {{/each}}
-
       {{#link-to 'authenticated.add-character'}}
         <li class="btn btn-default">New</li>
       {{/link-to}}
