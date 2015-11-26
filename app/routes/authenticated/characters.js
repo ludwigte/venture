@@ -9,15 +9,15 @@ export default Ember.Route.extend({
     return new Ember.RSVP.Promise((resolve,reject) => {
       return Ember.run.later(() => {
         charPromise.then(chars => {
-          if(chars.length === 0) {
-            resolve(charPromise);
+          if(chars.get("length") > 0) {
+            resolve(chars);
           }
           else {
             reject('Error: Empty Character!');
           }
         });
       }, 2000);
-    }).then(null, err => {alert(err.error)});
+    }).then(null, err => {alert(err.error); });
 
   }
 });
