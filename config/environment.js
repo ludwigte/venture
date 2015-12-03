@@ -6,6 +6,15 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self'",
+      'font-src': "'self'",
+      'connect-src': "'self'",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'media-src': "'self'"
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -27,6 +36,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
+  ENV.APP.STORE = 'simple-auth-session-store:local-storage';
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
@@ -37,6 +47,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.STORE = 'simple-auth-session-store:ephemeral';
   }
 
   if (environment === 'production') {
@@ -45,7 +56,8 @@ module.exports = function(environment) {
 
   ENV['simple-auth'] = {
     authorizer: 'simple-auth-authorizer:devise',
-    routeAfterAuthentication: 'authenticated.characters'
+    routeAfterAuthentication: 'authenticated.characters',
+    store: ENV.APP.STORE
   }
   ENV['simple-auth-devise'] = {
     // serverTokenEndpoint: '/users/sign_in',
